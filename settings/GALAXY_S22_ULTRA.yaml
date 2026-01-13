@@ -1,0 +1,70 @@
+#--------------------------------------------------------------------------------------------
+# Viewer Parameters
+#--------------------------------------------------------------------------------------------
+# Viewer.on: 1 is ON, 0 is OFF
+Viewer.on: 1
+
+Viewer.KeyFrameSize: 0.05
+Viewer.KeyFrameLineWidth: 1
+Viewer.GraphLineWidth: 0.9
+Viewer.PointSize: 1
+Viewer.LineSize: 1
+Viewer.CameraSize: 0.08
+Viewer.CameraLineWidth: 3
+Viewer.ViewpointX: 0
+Viewer.ViewpointY: -0.7
+Viewer.ViewpointZ: -1.8
+Viewer.ViewpointF: 500
+
+#--------------------------------------------------------------------------------------------
+# Camera Parameters for Galaxy S22 Ultra (approximate - should be calibrated!)
+#--------------------------------------------------------------------------------------------
+# These are APPROXIMATE values for Galaxy S22 Ultra main camera at 640x480
+# For best results, run proper camera calibration using calibration/calibrate.py
+#
+# The S22 Ultra main camera has ~23mm equivalent focal length (wide angle)
+# At 640x480, approximate focal length in pixels:
+#   fx = fy = (image_width / sensor_width) * focal_length_mm
+# Using typical phone sensor approximation:
+
+# Camera calibration and distortion parameters (OpenCV) 
+# APPROXIMATE values - proper calibration recommended!
+Camera.fx: 450.0
+Camera.fy: 450.0
+Camera.cx: 320.0
+Camera.cy: 240.0
+
+# Distortion coefficients - set to 0 for IP Webcam as it often applies correction
+# If you see barrel/pincushion distortion, these need calibration
+Camera.k1: 0.0
+Camera.k2: 0.0
+Camera.p1: 0.0
+Camera.p2: 0.0
+Camera.k3: 0.0
+
+Camera.width: 640
+Camera.height: 480
+
+# Camera frames per second 
+Camera.fps: 30.0
+
+# IR projector baseline times fx (aprox.) - not used for monocular
+Camera.bf: 40.0
+
+# Color order of the images (0: BGR, 1: RGB. It is ignored if images are grayscale)
+Camera.RGB: 0
+
+# Close/Far threshold. Baseline times.
+ThDepth: 40.0
+
+# Deptmap values factor
+DepthMapFactor: 1.0
+
+
+#--------------------------------------------------------------------------------------------
+# Features extraction 
+#--------------------------------------------------------------------------------------------
+
+# Increase features for more robust tracking
+FeatureTrackerConfig.nFeatures: 1500
+

@@ -1,3 +1,40 @@
+WORKS AND IS STABLE:
+```python3 optimized_webcam_main_slam.py -c config_ip_camera.yaml --ip_camera http://192.168.1.181:8080 --blur_threshold 40 --max_lost_frames 20```
+`feature_tracker_config = FeatureTrackerConfigs.ORB2`
+`loop_detection_config = LoopDetectorConfigs.DBOW3`
+`depth_estimator_type = DepthEstimatorType.DEPTH_PRO`
+
+RUN WEBSOCKET SERVER:
+`python3 websocket_slam_server.py --port 8765 --debug --config_path config_ip_camera.yaml`
+
+### find that lil bih thats taking the port u want
+`sudo lsof -i :8765`
+`kill <PID>`
+
+
+## Running everything
+- wsl is some bullshit so its been super annoying to actually access both the websocket server + nextjs frontend from phone on the same network
+
+### on ubuntu
+`. pyenv-activate.sh`  # activate pyslam env
+`python websocket_slam_server.py --port 8765` # start the slam server on port 8765
+`cd frontend && npm run dev` # start the nextjs frontend
+
+### on windows (run on administrator cmd prompt)
+`netsh advfirewall firewall add rule name="WSL 3000" dir=in action=allow protocol=TCP localport=3000` # tell firewall to allow incoming connections to port 3000
+`netsh advfirewall firewall add rule name="WSL 8765" dir=in action=allow protocol=TCP localport=8765` # tell firewall to allow incoming connections to port 8765
+
+if the above isnt enough, maybe also do some of this bullshit:
+`netsh interface portproxy add v4tov4 listenport=3000 listenaddress=0.0.0.0 connectport=4000 connectaddress=192.168.1.174`
+
+## Accessing from phone
+`chrome://flags/#unsafely-treat-insecure-origin-as-secure` # go to this url on your phone and enable the flag, and add the computer ip address (192.168.1.174)
+
+
+
+
+
+
 <p align="center"><img src="./images/pyslam-logo.png" style="height: 160px; width: auto"></p>
 
 # pySLAM v2.8.10

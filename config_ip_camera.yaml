@@ -1,0 +1,44 @@
+# Custom configuration for IP Camera / Galaxy S22 Ultra
+# Use with: python3 optimized_webcam_main_slam.py -c config_ip_camera.yaml --ip_camera http://YOUR_IP:8080
+
+DATASET:
+  type: VIDEO_DATASET  # We're treating the IP camera stream as video
+
+VIDEO_DATASET:
+  type: video
+  sensor_type: mono
+  base_path: ./data/videos/webcam
+  settings: settings/GALAXY_S22_ULTRA.yaml
+  name: dummy.mp4  # Not used for IP camera
+  groundtruth_file: none
+  timestamps: none
+
+
+SYSTEM_STATE: 
+  load_state: False
+  folder_path: results/slam_state
+
+
+SAVE_TRAJECTORY:
+  save_trajectory: True
+  format_type: tum
+  output_folder: results/metrics
+  basename: trajectory_ipcam
+
+
+# Global parameters tuned for real-time IP camera usage
+GLOBAL_PARAMETERS:
+  # More lenient tracking parameters for handheld camera
+  kNumFeatures: 1500
+  
+  # Reduce keyframe generation frequency (phone moves slower than robot)
+  kThNewKfRefRatioMonocular: 0.85
+  
+  # More lenient matching for motion blur scenarios
+  kFeatureMatchDefaultRatioTest: 0.75
+  
+  # Faster local mapping timeout
+  kLocalMappingTimeoutPopKeyframe: 0.3
+  
+  # More forgiving relocalization
+  kRelocalizationMinKpsMatches: 12
